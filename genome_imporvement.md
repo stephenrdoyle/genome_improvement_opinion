@@ -62,7 +62,7 @@ library(ggrepel)
 library(viridis)
 library(patchwork)
 
-data <- read.table("WBP17_stats.txt", header=T)
+data <- read.table("/nfs/users/nfs_s/sd21/lustre118_link/papers/genome_improvement/WBP17_stats.txt", header=T)
 
 plot1 <- ggplot(data, aes(log10(n50), log10(scaffold_count), size=otal_size,  col=as.numeric(assembly_busco3_complete), label=paste0(species, " (",scaffold_count,")" ))) +
      geom_point() +
@@ -90,8 +90,9 @@ plot2 <- ggplot(data, aes(log10(n50), log10(scaffold_count), col=as.numeric(anno
 plot1
 
 ggsave("plot_WBP17_stats.pdf", height=5, width=7)
+ggsave("plot_WBP17_stats.png")
 ```
-
+![](plot_WBP17_stats.png)
 
 
 
