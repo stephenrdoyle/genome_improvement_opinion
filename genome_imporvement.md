@@ -101,7 +101,7 @@ plot1
 ggsave("plot_WBP17_stats.pdf", height=5, width=10)
 ggsave("plot_WBP17_stats.png")
 ```
-![](plot_WBP17_stats.png)
+![](analysis/plot_WBP17_stats.png)
 
 
 
@@ -136,10 +136,15 @@ ggplot(data, aes(Year, log10(N50.scaffolds), col=Species, size=log10(as.numeric(
      labs(y="N50 (log10[bp])", x="Year assembly published")
 
 ggsave("plot_species_year_genome_improvement.pdf", height=5, width=10)
-
+ggsave("plot_species_year_genome_improvement.png")
 ```
+![](analysis/plot_WBP17_stats.png)
 
 
+
+
+### Manually running BUSCO
+- note, didnt use these in the end, as stuck with WBPS data
 ```bash
 #hcontortus BUSCO
 conda activate busco_5.3.0
@@ -286,13 +291,5 @@ for MRNA in ` awk -F '[\t]' '$3=="mRNA" {print $9}' ${GFF} | grep -Po "ID=transc
      echo -e "$chr\t$gene_start\t$gene_end\t$cds1\t$cds2\t$five_utr\t$three_utr\t$MRNA\t.\t$strand" >> coding.length; done &
 
 number=$(wc -l coding.length); count1=$(awk '{if($6>0) print}' coding.length | wc -l); count2=$(awk '{if($7>0) print}' coding.length | wc -l); echo -e "$number\t$count1\t$count2"
-
-
-
-
-
-
-
-
 
 ```
