@@ -138,7 +138,7 @@ ggplot(data, aes(Year, log10(N50.scaffolds), col=Species, size=log10(as.numeric(
 ggsave("plot_species_year_genome_improvement.pdf", height=5, width=10)
 ggsave("plot_species_year_genome_improvement.png")
 ```
-![](analysis/plot_WBP17_stats.png)
+![](analysis/plot_species_year_genome_improvement.png)
 
 
 
