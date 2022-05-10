@@ -1,5 +1,13 @@
-###
+# Genome Improvement
 
+Author: Stephen Doyle
+
+Code used to visualise variation in helminth genome assemblies, used in the manuscript "Improving helminth genome resources in the post-genomic era".
+
+
+## Download all genomes from WormBase ParaSite
+- code below was used to download data from WBPS v16
+- ended up getting a pre-release of data from WBPS v17 from Dio at EBI, so used that instead. Will update code to reflect how that can be downloaded once publicly available.
 
 ```bash
 # download all genomes from WBP
@@ -29,7 +37,7 @@ ls -1 *.genomic.fa | sed -e 's/.WBPS16.genomic.fa//g' -e 's/\./_/g' | tr '[:uppe
 awk '{print $1,$3,$5,$7,$9}' OFS="\t" WBP16_quality_stats.txt > tmp; mv tmp WBP16_quality_stats.txt
 ```
 
-
+### make some plots
 ```R
 library(tidyverse)
 library(ggrepel)
@@ -56,6 +64,7 @@ ggplot(data, aes(log10(n50), log10(number), size=total_length, col=as.numeric(co
 ```
 
 ### WBP17 data from Dio
+- here is the code used to plot data from Dio from the pre-release of WBPSv17
 ```R
 library(tidyverse)
 library(ggrepel)
@@ -89,7 +98,7 @@ plot2 <- ggplot(data, aes(log10(n50), log10(scaffold_count), col=as.numeric(anno
 
 plot1
 
-ggsave("plot_WBP17_stats.pdf", height=5, width=7)
+ggsave("plot_WBP17_stats.pdf", height=5, width=10)
 ggsave("plot_WBP17_stats.png")
 ```
 ![](plot_WBP17_stats.png)
@@ -101,13 +110,16 @@ ggsave("plot_WBP17_stats.png")
 
 
 
-- showing genome improvement over time
+### Genome improvement over time
+- wanted to illustrate examples of where a genome has been published and subsequently iteratively improved over time.
+- curated a database of examples from the literature,
+
 ```R
 library(tidyverse)
 library(ggrepel)
 library(viridis)
 
-data <- read.table("species_year_genome_improvement.txt", header=T, sep="\t")
+data <- read.table("/nfs/users/nfs_s/sd21/lustre118_link/papers/genome_improvement/species_year_genome_improvement.txt", header=T, sep="\t")
 
 ggplot(data, aes(Year, log10(N50.scaffolds), col=Species, size=log10(as.numeric(Genome_size)))) +
      geom_line(size=1) +
@@ -122,6 +134,9 @@ ggplot(data, aes(Year, log10(N50.scaffolds), col=Species, size=log10(as.numeric(
      scale_x_continuous(expand = expansion(mult = 0.2)) +
      scale_y_continuous(expand = expansion(mult = 0.2)) +
      labs(y="N50 (log10[bp])", x="Year assembly published")
+
+ggsave("plot_species_year_genome_improvement.pdf", height=5, width=10)
+
 ```
 
 
